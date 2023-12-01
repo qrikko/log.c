@@ -8,12 +8,25 @@
 #ifndef LOG_H
 #define LOG_H
 
+#include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdbool.h>
 #include <time.h>
 
 #define LOG_VERSION "0.1.0"
+
+#define LOG_USE_COLOR
+
+#if !defined (PATH_TYPE)
+#define PATH_TYPE FILENAME
+#endif
+
+#define FILENAME(__file__) \
+  (strrchr(__file__, '/') ? strrchr(__file__, '/') + 1 : __file__)
+
+#define RELPATH(__file__)                        \
+  (strchr(strchr(__file__, '/') + 1, '/') ? strchr(strchr(__file__, '/') + 1, '/') + 1 : __file__)
 
 typedef struct {
   va_list ap;
@@ -30,12 +43,12 @@ typedef void (*log_LockFn)(bool lock, void *udata);
 
 enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };
 
-#define log_trace(...) log_log(LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
-#define log_debug(...) log_log(LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
-#define log_info(...)  log_log(LOG_INFO,  __FILE__, __LINE__, __VA_ARGS__)
-#define log_warn(...)  log_log(LOG_WARN,  __FILE__, __LINE__, __VA_ARGS__)
-#define log_error(...) log_log(LOG_ERROR, __FILE__, __LINE__, __VA_ARGS__)
-#define log_fatal(...) log_log(LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
+#define log_trace(...) log_log(LOG_TRACE, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_debug(...) log_log(LOG_DEBUG, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_info(...)  log_log(LOG_INFO,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_warn(...)  log_log(LOG_WARN,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_error(...) log_log(LOG_ERROR, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_fatal(...) log_log(LOG_FATAL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
 
 const char* log_level_string(int level);
 void log_set_lock(log_LockFn fn, void *udata);
