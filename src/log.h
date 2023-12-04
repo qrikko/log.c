@@ -22,6 +22,11 @@
 #define PATH_TYPE FILENAME
 #endif
 
+#if defined(windows)
+	#define __file__ __FILE__
+	#define __BASE_FILE__ __file__
+#endif
+
 #define FILENAME(__file__) \
   (strrchr(__file__, '/') ? strrchr(__file__, '/') + 1 : __file__)
 
