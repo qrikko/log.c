@@ -22,7 +22,7 @@
 #define PATH_TYPE FILENAME
 #endif
 
-#if defined(windows)
+#if defined(win32)
 	#define __file__ __FILE__
 	#define __BASE_FILE__ __file__
 #endif
