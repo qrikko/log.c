@@ -55,7 +55,8 @@ static void stdout_callback(log_Event *ev) {
   buf[strftime(buf, sizeof(buf), "%H:%M:%S", ev->time)] = '\0';
 #ifdef LOG_USE_COLOR
   fprintf(
-    ev->udata, "%s %s%-5s\x1b[0m \x1b[90m [%s:%d]: \x1b[0m",
+    //ev->udata, "%s %s%-5s\x1b[0m \x1b[90m [%s:%d]: \x1b[0m",
+    ev->udata, "%s %s%-5s\x1b[0m \x1b[33m [%s:%d]: \x1b[0m",
     buf, level_colors[ev->level], level_strings[ev->level],
     ev->file, ev->line);
 #else
