@@ -13,8 +13,9 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <time.h>
+#include <stdlib.h>
 
-#define LOG_VERSION "0.1.0"
+#define LOG_VERSION "0.3.0"
 
 #define LOG_USE_COLOR
 
@@ -55,6 +56,18 @@ enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL, LOG_VK_VL
 #define log_error(...) log_log(LOG_ERROR, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
 #define log_fatal(...) log_log(LOG_FATAL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
 #define log_vk_vl(...) log_log(LOG_VK_VL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+
+#ifdef DEBUG
+    #define log_assert(condition, fmt, ...) \
+        do { \
+            if (!(condition)) { \
+                log_fatal(fmt, "%s", ##__VA_ARGS__, #condition); \
+                abort(); \
+            } \
+        } while(0);
+#else
+    #define log_assert(condition, fmt, ...) ((void)0)
+#endif
 
 const char* log_level_string(int level);
 void log_set_lock(log_LockFn fn, void *udata);
