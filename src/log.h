@@ -47,16 +47,29 @@ typedef struct {
 typedef void (*log_LogFn)(log_Event *ev);
 typedef void (*log_LockFn)(bool lock, void *udata);
 
-enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL, LOG_VK_VL, LOG_TODO };
+enum {
+	LOG_TRACE,
+	LOG_DEBUG,
+	LOG_INFO,
+	LOG_WARN,
+	LOG_ERROR,
+	LOG_FATAL,
+	LOG_VK_VL,
+	LOG_TODO,
+	LOG_DMT_INFO,
+    LOG_DMT_LEAK
+};
 
-#define log_trace(...) log_log(LOG_TRACE, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_debug(...) log_log(LOG_DEBUG, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_info(...)  log_log(LOG_INFO,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_warn(...)  log_log(LOG_WARN,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_error(...) log_log(LOG_ERROR, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_fatal(...) log_log(LOG_FATAL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_vk_vl(...) log_log(LOG_VK_VL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
-#define log_todo(...)  log_log(LOG_TODO,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_trace(...)       log_log(LOG_TRACE, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_debug(...)       log_log(LOG_DEBUG, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_info(...)        log_log(LOG_INFO,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_warn(...)        log_log(LOG_WARN,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_error(...)       log_log(LOG_ERROR, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_fatal(...)       log_log(LOG_FATAL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_vk_vl(...)       log_log(LOG_VK_VL, PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_todo(...)        log_log(LOG_TODO,  PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_dmt_info(...)    log_log(LOG_DMT_INFO,   PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
+#define log_dmt_leak(...)    log_log(LOG_DMT_INFO,   PATH_TYPE(__BASE_FILE__), __LINE__, __VA_ARGS__)
 
 #ifdef DEBUG
     #define log_assert(condition, fmt, ...) \

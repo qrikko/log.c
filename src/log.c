@@ -40,12 +40,29 @@ static struct {
 
 
 static const char *level_strings[] = {
-  "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "VK_VALIDATION_LAYER", "TODO"
+    "TRACE",
+	"DEBUG",
+	"INFO",
+	"WARN",
+	"ERROR",
+	"FATAL",
+	"VK_VALIDATION_LAYER",
+	"TODO",
+	"DMT_INFO",
+	"DMT_LEAK"
 };
 
 #ifdef LOG_USE_COLOR
 static const char *level_colors[] = {
-  "\x1b[94m", "\x1b[36m", "\x1b[32m", "\x1b[33m", "\x1b[31m", "\x1b[35m", "\x1b[33m", "\x1b[33m" 
+	"\x1b[94m",     // TRACE
+	"\x1b[36m",     // DEBUG
+	"\x1b[32m",     // INFO
+	"\x1b[33m",     // WARN
+	"\x1b[31m",     // ERROR
+	"\x1b[35m",     // FATAL
+	"\x1b[33m",     // VK_VALIDATION_LAYER
+	"\x1b[33m",     // DMT_INFO
+	"\x1b[36m"      // DMT_LEAK
 };
 #endif
 
